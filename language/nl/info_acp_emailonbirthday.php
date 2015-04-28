@@ -20,6 +20,5 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'E_MAIL_ON_BIRTHDAY'				=> 'E-mail op je verjaardag',
 	'E_MAIL_ON_BIRTHDAY_EXPLAIN'		=> 'Stuur ieder lid een email op zijn verjaardag',
-	
 	'BIRTHDAYSEND'						=> '<strong>Verjaardagskaart gestuurd naar</strong><br />» %s',
 ));

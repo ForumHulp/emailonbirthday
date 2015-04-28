@@ -49,7 +49,7 @@ class birthday extends \phpbb\cron\task\base
 	{
 		$time = $this->user->create_datetime();
 		$now = phpbb_gmgetdate($time->getTimestamp() + $time->getOffset());
-	
+
 		// Display birthdays of 29th february on 28th february in non-leap-years
 		$leap_year_birthdays = '';
 		if ($now['mday'] == 28 && $now['mon'] == 2 && !$time->format('L'))
@@ -108,7 +108,7 @@ class birthday extends \phpbb\cron\task\base
 					);
 
 					$messenger->send(NOTIFY_EMAIL);
-					
+
 					$sql = 'UPDATE ' . USERS_TABLE . ' SET email_on_birthday = ' . time() . ' WHERE user_id = ' . $value['user_id'];
 					$this->db->sql_query($sql);
 				}
@@ -147,9 +147,9 @@ class birthday extends \phpbb\cron\task\base
 	public function convertNumber($number)
 	{
 		list($integer) = explode(".", (string) $number);
-	
+
 		$output = "";
-	
+
 		if ($integer{0} == "-")
 		{
 			$output = "negative ";
@@ -160,7 +160,7 @@ class birthday extends \phpbb\cron\task\base
 			$output = "positive ";
 			$integer    = ltrim($integer, "+");
 		}
-	
+
 		if ($integer{0} == "0")
 		{
 			$output .= "zero";
@@ -170,13 +170,13 @@ class birthday extends \phpbb\cron\task\base
 			$integer = str_pad($integer, 36, "0", STR_PAD_LEFT);
 			$group   = rtrim(chunk_split($integer, 3, " "), " ");
 			$groups  = explode(" ", $group);
-	
+
 			$groups2 = array();
 			foreach ($groups as $g)
 			{
 				$groups2[] = $this->convertThreeDigit($g{0}, $g{1}, $g{2});
 			}
-	
+
 			for ($z = 0; $z < count($groups2); $z++)
 			{
 				if ($groups2[$z] != "")
@@ -191,7 +191,7 @@ class birthday extends \phpbb\cron\task\base
 						);
 				}
 			}
-	
+
 			$output = rtrim($output, ", ");
 		}
 		return $output;
@@ -206,12 +206,12 @@ class birthday extends \phpbb\cron\task\base
 		if ( in_array($if_teen, $teen_array) )
 		{
 			$new_n = 'de';
-		} elseif ( $if_teen == '00' ||  $if_teen == '01' ||  $if_teen > 20 )
+		} else if ( $if_teen == '00' ||  $if_teen == '01' ||  $if_teen > 20 )
 		{
 			$new_n = 'ste';
-		} elseif ( $single_array[$single] )
+		} else if ( $single_array[$single] )
 		{
-			$new_n = $single_array[$single];    
+			$new_n = $single_array[$single];
 		}
 		return $new_n;
 	}
@@ -250,12 +250,12 @@ class birthday extends \phpbb\cron\task\base
 	public function convertThreeDigit($digit1, $digit2, $digit3)
 	{
 		$buffer = "";
-	
+
 		if ($digit1 == "0" && $digit2 == "0" && $digit3 == "0")
 		{
 			return "";
 		}
-	
+
 		if ($digit1 != "0")
 		{
 			$buffer .= $this->convertDigit($digit1) . " hundred";
@@ -264,7 +264,7 @@ class birthday extends \phpbb\cron\task\base
 				$buffer .= " and ";
 			}
 		}
-	
+
 		if ($digit2 != "0")
 		{
 			$buffer .= $this->convertTwoDigit($digit2, $digit3);
@@ -273,7 +273,7 @@ class birthday extends \phpbb\cron\task\base
 		{
 			$buffer .= $this->convertDigit($digit3, $digit2);
 		}
-	
+
 		return $buffer;
 	}
 
@@ -350,7 +350,7 @@ class birthday extends \phpbb\cron\task\base
 		}
 	}
 
-	public function convertDigit($digit, $digit1 = 1 )
+	public function convertDigit($digit, $digit1 = 1)
 	{
 		switch ($digit)
 		{
