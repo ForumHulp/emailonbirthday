@@ -1,0 +1,20 @@
+services:
+    forumhulp.emailonbirthday.listener:
+        class: forumhulp\emailonbirthday\event\listener
+        arguments:
+            - @controller.helper
+        tags:
+            - { name: event.listener }
+    cron.task.core.email_on_birthday:
+        class: forumhulp\emailonbirthday\cron\task\core\birthday
+        arguments:
+            - %core.root_path%
+            - %core.php_ext%
+            - @config
+            - @user
+            - @dbal.conn
+            - @log
+        calls:
+            - [set_name, [cron.task.core.email_on_birthday]]
+        tags:
+            - { name: cron.task }

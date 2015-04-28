@@ -1,0 +1,37 @@
+{
+    "name": "forumhulp/emailonbirthday",
+    "type": "phpbb-extension",
+    "description": "E-mail on birthday.",
+    "homepage": "http://forumhulp.com",
+    "version": "3.1.0",
+    "keywords": [
+        "forumhulp",
+        "phpbb",
+        "extension",
+        "error",
+        "error pages"
+    ],
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "John Peskens",
+            "homepage": "http://forumhulp.com",
+            "email": "info@forumhulp.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "extra": {
+        "display-name": "E-mail on birthday",
+        "soft-require": {
+            "phpbb/phpbb": ">=3.1.*"
+        },
+        "version-check": {
+			"host": "forumhulp.com",
+			"directory": "/ext",
+			"filename": "index.php?id=44"
+        }
+    }
+}
