@@ -1,0 +1,11 @@
+Subject: Gefeliciteerd met je verjaardag, {USERNAME}!
+
+Beste {USERNAME},
+
+Gefeliciteerd met je {BIRTHDAY} verjaardag. Wij van {SITENAME} wensen je een hele fijne dag toe!!
+
+
+De beste wens die wij je kunnen geven is een lang en gelukkig leven,
+
+
+{EMAIL_SIG}

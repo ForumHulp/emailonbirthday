@@ -1,7 +1,7 @@
 Email on birthday
 ===========
 
-Email on birthday sends every member a card on his or her birthday.
+Email on birthday sends every member acard on his or her birthday.
 
 [![Build Status](https://travis-ci.org/ForumHulp/emailonbirthday.svg?branch=master)](https://travis-ci.org/ForumHulp/emailonbirthday)
 
