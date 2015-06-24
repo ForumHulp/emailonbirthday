@@ -24,7 +24,7 @@ class ext extends \phpbb\extension\base
 		if (empty($old_state))
 		{
 			global $user;
-			$info = '<div style="width:80%;margin:20px auto;"><p style="text-align:left;">There are no settings for this extension.</p></div>';
+			$info = '<div style="width:80%;margin:20px auto;"><p style="text-align:left;">Settings for this extension are in General >> Board configuration >> Board features.</p></div>';
 			$user->lang['EXTENSION_ENABLE_SUCCESS'] =  $user->lang['EXTENSION_ENABLE_SUCCESS'] . $info;
 		}
 		// Run parent enable step method
