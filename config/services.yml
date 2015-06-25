@@ -1,4 +1,11 @@
 services:
+    forumhulp.emailonbirthday.lang_manager:
+        class: forumhulp\emailonbirthday\lang_manager\manager
+        arguments:
+            - %core.root_path%
+            - %core.php_ext%
+            - @config
+            - @user
     forumhulp.emailonbirthday.listener:
         class: forumhulp\emailonbirthday\event\listener
         arguments:
@@ -14,6 +21,7 @@ services:
             - @user
             - @dbal.conn
             - @log
+            - @forumhulp.emailonbirthday.lang_manager
         calls:
             - [set_name, [cron.task.core.email_on_birthday]]
         tags:

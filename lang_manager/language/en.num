@@ -1,0 +1,81 @@
+# format: USD 20.25 -> twenty dollars and twenty-five cents
+__numbertext__
+^0 zero
+1 one
+2 two
+3 three
+4 four
+5 five
+6 six
+7 seven
+8 eight
+9 nine
+10 ten
+11 eleven
+12 twelve
+13 thirteen
+15 fifteen
+18 eighteen
+1(\d) $1teen
+20 twenty
+2(\d) twenty-$1
+30 thirty
+3(\d) thirty-$1
+40 forty
+4(\d) forty-$1
+50 fifty
+5(\d) fifty-$1
+80 eighty
+8(\d) eighty-$1
+(\d)0 $1ty
+(\d)(\d) $1ty-$2
+
+# separator function
+:0+			# one million
+:0*\d?\d " and"		# one million and twenty-two
+:\d+ ,			# one million, one thousand
+
+(\d)(\d\d) $1 hundred$(:\2) $2
+(\d{1,2})([1-9]\d\d) $1 thousand $2	# ten thousand two hundred
+(\d{1,3})(\d{3}) $1 thousand$(:\2) $2	# one hundred thousand, two hundred
+(\d{1,3})(\d{6}) $1 million$(:\2) $2
+(\d{1,3})(\d{9}) $1 billion$(:\2) $2
+(\d{1,3})(\d{12}) $1 trillion$(:\2) $2
+(\d{1,3})(\d{15}) $1 quadrillion$(:\2) $2
+(\d{1,3})(\d{18}) $1 quintillion$(:\2) $2
+(\d{1,3})(\d{21}) $1 sextillion$(:\2) $2
+(\d{1,3})(\d{24}) $1 septillion$(:\2) $2
+
+# negative number
+
+[-−](\d+) negative |$1
+
+# decimals
+
+0[.,] point
+([-−]?\d+)[.,] $1| point
+([-−]?\d+[.,]\d*)(\d) $1| |$2
+
+# ordinal numbers
+
+"ord ([-−]?\d+)" $(ord:|$1)
+
+ord:(.*)one	\1first
+ord:(.*)two	\1second
+ord:(.*)three	\1third
+ord:(.*)five	\1fifth
+ord:(.*)eight	\1eighth
+ord:(.*)nine	\1ninth
+ord:(.*)twelve	\1twelfth
+ord:(.*)y	\1ieth
+"ord:(.*[^ ]) *" \1th
+
+# ordinal abbreviation
+
+"ord2 (.*1\d)"	\1th
+"ord2 (.*1)"	\1st
+"ord2 (.*2)"	\1nd
+"ord2 (.*3)"	\1rd
+"ord2 (.*)"	\1th
+
+help Functions:\n ord \(ordinal numbers, eg. "first"\)\nord2 \(ordinal abbreviations, eg. "1st"\)\nExtra modules:\nen_US_2 \(subunit as decimal fraction: "USD 20.25" -> twenty and 25/100 dollars\)
