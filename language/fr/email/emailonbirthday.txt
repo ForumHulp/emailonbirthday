@@ -2,7 +2,7 @@ Subject: Bon anniversaire, {USERNAME} !
 
 Bonjour {USERNAME},
 
-Toutes nos félicitations pour l’anniversaire de vos {BIRTHDAY}. L’équipe du forum {SITENAME} espère que vous passerez une excellente journée !
+Toutes nos félicitations pour votre {BIRTHDAY} anniversaire. L’équipe du forum {SITENAME} espère que vous passerez une excellente journée !
 
 
 En un pareil évènement, nous vous souhaitons que du bonheur et la santé,
