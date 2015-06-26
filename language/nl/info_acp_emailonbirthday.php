@@ -21,5 +21,5 @@ $lang = array_merge($lang, array(
 	'E_MAIL_ON_BIRTHDAY'			=> 'E-mail op je verjaardag',
 	'E_MAIL_ON_BIRTHDAY_EXPLAIN'	=> 'Stuur ieder lid een email op zijn verjaardag',
 	'BIRTHDAYSEND'					=> '<strong>Verjaardagskaart gestuurd naar</strong><br />» %s',
-	'E_MAIL_ON_BIRTHDAY_NOTICE'		=> '<div style="width:80%;margin:20px auto;"><p style="text-align:left;">Settings for this extension are in General >> Board configuration >> Board features.</p></div>'
+	'E_MAIL_ON_BIRTHDAY_NOTICE'		=> '<div style="width:80%;margin:20px auto;"><p style="text-align:center;">Settings for this extension are in General >> Board configuration >> Board features.</p></div>'
 ));
