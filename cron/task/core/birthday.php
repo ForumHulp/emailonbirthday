@@ -112,7 +112,7 @@ class birthday extends \phpbb\cron\task\base
 					$messenger->send(NOTIFY_EMAIL);
 
 					$sql = 'UPDATE ' . USERS_TABLE . ' SET email_on_birthday = ' . time() . ' WHERE user_id = ' . $value['user_id'];
-	//				$this->db->sql_query($sql);
+					$this->db->sql_query($sql);
 				}
 				$userlist = array_map(function ($entry)
 				{
@@ -122,7 +122,7 @@ class birthday extends \phpbb\cron\task\base
 				$this->log->add('admin', $this->user->data['user_id'], $this->user->data['session_ip'], 'BIRTHDAYSEND', false, array(implode(', ', $userlist)));
 			}
 		}
-	//	$this->config->set('email_on_birthday_last_gc', time());
+		$this->config->set('email_on_birthday_last_gc', time());
 	}
 
 	/**

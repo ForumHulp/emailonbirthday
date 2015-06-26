@@ -3,9 +3,6 @@ services:
         class: forumhulp\emailonbirthday\lang_manager\manager
         arguments:
             - %core.root_path%
-            - %core.php_ext%
-            - @config
-            - @user
     forumhulp.emailonbirthday.listener:
         class: forumhulp\emailonbirthday\event\listener
         arguments:
