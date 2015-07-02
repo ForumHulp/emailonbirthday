@@ -20,6 +20,8 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'E_MAIL_ON_BIRTHDAY'			=> 'E-mail on your birthday',
 	'E_MAIL_ON_BIRTHDAY_EXPLAIN'	=> 'Send every member a birthday email on his / her birthday',
+	'HTML_EMAIL_ON_BIRTHDAY'		=> 'Use html in email',
+	'HTML_EMAIL_ON_BIRTHDAY_EXPLAIN'=> 'Send a html email instead of plain-text.',
 	'BIRTHDAYSEND'					=> '<strong>Birthday mail send to</strong><br />» %s',
-	'E_MAIL_ON_BIRTHDAY_NOTICE'		=> '<div style="width:80%;margin:20px auto;"><p style="text-align:left;">Settings for this extension are in General >> Board configuration >> Board features.</p></div>',
+	'E_MAIL_ON_BIRTHDAY_NOTICE'		=> '<div style="width:80%;margin:20px auto;"><p style="text-align:left;">There are no settings for this extension. To use this function you have to switch html to on in your application. Use $messenger->use_html(true); to activate html email.</p></div>',
 ));

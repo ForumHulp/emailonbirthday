@@ -19,6 +19,7 @@ services:
             - @dbal.conn
             - @log
             - @forumhulp.emailonbirthday.lang_manager
+            - @service_container
         calls:
             - [set_name, [cron.task.core.email_on_birthday]]
         tags:

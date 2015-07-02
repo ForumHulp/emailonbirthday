@@ -41,6 +41,8 @@ if (empty($lang) || !is_array($lang))
 $lang = array_merge($lang, array(
 	'E_MAIL_ON_BIRTHDAY'			=> 'E-mail d’anniversaire',
 	'E_MAIL_ON_BIRTHDAY_EXPLAIN'	=> 'Envoie un e-mail à chaque utilisateur pour son anniversaire.',
+	'HTML_EMAIL_ON_BIRTHDAY'		=> 'Use html in email',
+	'HTML_EMAIL_ON_BIRTHDAY_EXPLAIN'=> 'Send a html email instead of plain-text.',
 	'BIRTHDAYSEND'					=> '<strong>E-mail d’anniversaire envoyé à</strong><br />» %s',
 	'E_MAIL_ON_BIRTHDAY_NOTICE'		=> '<div style="width:80%;margin:20px auto;"><p style="text-align:center;">Les paramètres de cette extension sont disponibles dans Général >> Configuration générale >> Fonctionnalités du forum.</p></div>',
 ));

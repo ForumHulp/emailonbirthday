@@ -47,6 +47,7 @@ class install_emailonbirthday extends \phpbb\db\migration\migration
 	{
 		return array(
 			array('config.add', array('email_on_birthday', '1')),
+			array('config.add', array('html_email_on_birthday', '0')),
 			array('config.add', array('email_on_birthday_gc', '43200')),
 			array('config.add', array('email_on_birthday_last_gc', '0', '1')),
 			array('config.add', array('email_on_birthday_version', '3.1.1')),

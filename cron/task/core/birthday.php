@@ -8,6 +8,7 @@
 */
 
 namespace forumhulp\emailonbirthday\cron\task\core;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
 * @ignore
@@ -22,6 +23,7 @@ class birthday extends \phpbb\cron\task\base
 	protected $db;
 	protected $log;
 	protected $manager;
+	protected $container;
 
 	/**
 	* Constructor.
@@ -31,15 +33,16 @@ class birthday extends \phpbb\cron\task\base
 	* @param phpbb_config $config The config
 	* @param phpbb_db_driver $db The db connection
 	*/
-	public function __construct($phpbb_root_path, $php_ext, \phpbb\config\config $config, \phpbb\user $user, \phpbb\db\driver\driver_interface $db, \phpbb\log\log $log, \forumhulp\emailonbirthday\lang_manager\manager $manager)
+	public function __construct($phpbb_root_path, $php_ext, \phpbb\config\config $config, \phpbb\user $user, \phpbb\db\driver\driver_interface $db, \phpbb\log\log $log, \forumhulp\emailonbirthday\lang_manager\manager $manager, ContainerInterface $container)
 	{
-		$this->phpbb_root_path = $phpbb_root_path;
-		$this->php_ext = $php_ext;
-		$this->config = $config;
-		$this->user = $user;
-		$this->db = $db;
-		$this->log = $log;
-		$this->lang_manager = $manager;
+		$this->phpbb_root_path	= $phpbb_root_path;
+		$this->php_ext 			= $php_ext;
+		$this->config			= $config;
+		$this->user				= $user;
+		$this->db				= $db;
+		$this->log				= $log;
+		$this->lang_manager		= $manager;
+		$this->container		= $container;
 	}
 
 	/**
@@ -89,11 +92,14 @@ class birthday extends \phpbb\cron\task\base
 				}
 
 				$server_url = generate_board_url();
+				$manager = $this->container->get('ext.manager');
+				$use_html = $manager->is_enabled('forumhulp/htmlemail');
 				$messenger = new \messenger(false);
 
 				foreach($msg_list as $key => $value)
 				{
 					$messenger->template('@forumhulp_emailonbirthday/emailonbirthday', $value['lang']);
+					($use_html) ? $messenger->set_mail_html($this->config['html_email_on_birthday']) : null;
 
 					$messenger->to($value['email'], $value['name']);
 
@@ -112,7 +118,7 @@ class birthday extends \phpbb\cron\task\base
 					$messenger->send(NOTIFY_EMAIL);
 
 					$sql = 'UPDATE ' . USERS_TABLE . ' SET email_on_birthday = ' . time() . ' WHERE user_id = ' . $value['user_id'];
-					$this->db->sql_query($sql);
+	//				$this->db->sql_query($sql);
 				}
 				$userlist = array_map(function ($entry)
 				{
@@ -122,7 +128,7 @@ class birthday extends \phpbb\cron\task\base
 				$this->log->add('admin', $this->user->data['user_id'], $this->user->data['session_ip'], 'BIRTHDAYSEND', false, array(implode(', ', $userlist)));
 			}
 		}
-		$this->config->set('email_on_birthday_last_gc', time());
+	//	$this->config->set('email_on_birthday_last_gc', time());
 	}
 
 	/**
