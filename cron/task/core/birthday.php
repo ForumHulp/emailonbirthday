@@ -8,6 +8,7 @@
 */
 
 namespace forumhulp\emailonbirthday\cron\task\core;
+
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

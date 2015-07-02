@@ -65,7 +65,7 @@ class listener implements EventSubscriberInterface
 			$event['display_vars'] = array('title' => $display_vars['title'], 'vars' => $display_vars['vars']);
 		}
 	}
-	
+
 	static function html_email_on_birthday($value, $key)
 	{
 		global $config, $phpbb_container;
