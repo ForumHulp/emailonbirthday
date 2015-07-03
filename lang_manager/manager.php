@@ -34,7 +34,8 @@ class manager
 	}
 
 	function numbertext($input = '', $lang = '')
-	{// Thanks to Pavel Astakhov
+	{
+		// Thanks to Pavel Astakhov
 		$source = file_get_contents($this->lang_path . ((file_exists($this->lang_path . $lang . '.num')) ? $lang : 'en') . '.num');
 
 		$this->m		= array('\\', '\"', ';', '#');
