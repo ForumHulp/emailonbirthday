@@ -97,7 +97,7 @@ class birthday extends \phpbb\cron\task\base
 				$use_html = $manager->is_enabled('forumhulp/htmlemail');
 				$messenger = new \messenger(false);
 
-				foreach($msg_list as $key => $value)
+				foreach ($msg_list as $key => $value)
 				{
 					$messenger->template('@forumhulp_emailonbirthday/emailonbirthday', $value['lang']);
 					($use_html) ? $messenger->set_mail_html($this->config['html_email_on_birthday']) : null;
