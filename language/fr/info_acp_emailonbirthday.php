@@ -43,7 +43,7 @@ $lang = array_merge($lang, array(
 	'E_MAIL_ON_BIRTHDAY_EXPLAIN'	=> 'Envoie un e-mail à chaque utilisateur pour son anniversaire.',
 	'HTML_EMAIL_ON_BIRTHDAY'		=> 'E-mail d’anniversaire en HTML',
 	'HTML_EMAIL_ON_BIRTHDAY_EXPLAIN'=> 'Envoie l’email d’anniversaire en HTML en lieu et place du format texte.',
-	'HTML_EMAIL_ENABLED'			=> '(Only possible with enabled extension forumhulp\htmlemail)',
+	'HTML_EMAIL_ENABLED'			=> '(Possible uniquement si l’extension forumhulp\htmlemail est activée)',
 	'BIRTHDAYSEND'					=> '<strong>E-mail d’anniversaire envoyé à</strong><br />» %s',
 	'E_MAIL_ON_BIRTHDAY_NOTICE'		=> '<div style="width:80%;margin:20px auto;"><p style="text-align:center;">Les paramètres de cette extension sont disponibles dans Général >> Configuration générale >> Fonctionnalités du forum.</p></div>',
 ));
