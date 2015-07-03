@@ -68,13 +68,12 @@ class listener implements EventSubscriberInterface
 
 	static function html_email_on_birthday($value, $key)
 	{
-		global $config, $phpbb_container;
+		global $config, $user, $phpbb_container;
 
 		$manager = $phpbb_container->get('ext.manager');
 		$use_html = $manager->is_enabled('forumhulp/htmlemail');
 
 		$radio_ary = array(1 => 'YES', 0 => 'NO');
-		return h_radio('config[html_email_on_birthday]', $radio_ary, (!$use_html) ? 0 : $value) . ((!$use_html) ? '(Only possible with enabled extension forumhulp\htmlemail)' : '');
+		return str_replace('value="1"', 'value="1"' . ((!$use_html) ? 'disabled' : ''), h_radio('config[html_email_on_birthday]', $radio_ary, (!$use_html) ? 0 : $value) . ((!$use_html) ? $user->lang['HTML_EMAIL_ENABLED'] : ''));
 	}
-
 }
