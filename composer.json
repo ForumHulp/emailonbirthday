@@ -8,8 +8,8 @@
         "forumhulp",
         "phpbb",
         "extension",
-        "error",
-        "error pages"
+        "email",
+        "birthday"
     ],
     "license": "GPL-2.0",
     "authors": [
