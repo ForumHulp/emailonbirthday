@@ -9,7 +9,7 @@ services:
             - @controller.helper
         tags:
             - { name: event.listener }
-    cron.task.core.email_on_birthday:
+    forumhulp.emailonbirthday.cron.task.core.email_on_birthday:
         class: forumhulp\emailonbirthday\cron\task\core\birthday
         arguments:
             - %core.root_path%
@@ -21,6 +21,6 @@ services:
             - @forumhulp.emailonbirthday.lang_manager
             - @service_container
         calls:
-            - [set_name, [cron.task.core.email_on_birthday]]
+            - [set_name, [forumhulp.emailonbirthday.cron.task.core.email_on_birthday]]
         tags:
             - { name: cron.task }
