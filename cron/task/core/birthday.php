@@ -129,7 +129,7 @@ class birthday extends \phpbb\cron\task\base
 				$this->log->add('admin', $this->user->data['user_id'], $this->user->data['session_ip'], 'BIRTHDAYSEND', false, array(implode(', ', $userlist)));
 			}
 		}
-		$this->config->set('email_on_birthday_last_gc', time());
+		$this->config->set('emailonbirthday_last_gc', time());
 	}
 
 	/**
@@ -150,6 +150,6 @@ class birthday extends \phpbb\cron\task\base
 	*/
 	public function should_run()
 	{
-		return $this->config['email_on_birthday_last_gc'] < (time() - $this->config['email_on_birthday_gc']);
+		return $this->config['emailonbirthday_last_gc'] < (time() - $this->config['emailonbirthday_gc']);
 	}
 }
