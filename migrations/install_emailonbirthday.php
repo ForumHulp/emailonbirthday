@@ -51,7 +51,7 @@ class install_emailonbirthday extends \phpbb\db\migration\migration
 
 	public function update_email_on_birthday()
 	{
-		$sql = 'UPDATE ' . USERS_TABLE . ' SET email_on_birthday = ' . time();
+		$sql = 'UPDATE ' . USERS_TABLE . ' SET email_on_birthday = ' . (time() - 15778463);
 		$this->db->sql_query($sql);
 	}
 }
