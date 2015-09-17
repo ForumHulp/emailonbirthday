@@ -1,9 +1,9 @@
 {
     "name": "forumhulp/emailonbirthday",
     "type": "phpbb-extension",
-    "description": "E-mail on birthday.",
+    "description": "Email on birthday sends every member a card on his or her birthday.",
     "homepage": "http://forumhulp.com",
-    "version": "3.1.3",
+    "version": "3.1.4",
     "keywords": [
         "forumhulp",
         "phpbb",

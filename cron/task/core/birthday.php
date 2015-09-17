@@ -107,7 +107,7 @@ class birthday extends \phpbb\cron\task\base
 					$messenger->headers('X-AntiAbuse: Board servername - ' . $this->config['server_name']);
 					$messenger->headers('X-AntiAbuse: User_id - ' . $value['user_id']);
 					$messenger->headers('X-AntiAbuse: Username - ' . $value['name']);
-					$messenger->headers('X-AntiAbuse: User IP - ' . '127.0.0.1');
+					$messenger->headers('X-AntiAbuse: User IP - ' . $this->user->ip);
 
 					$messenger->assign_vars(array(
 						'USERNAME'		=> htmlspecialchars_decode($value['name']),

@@ -1,6 +1,6 @@
 Subject: Congratulations on your birthday, {USERNAME}!
 
-Beste {USERNAME},
+Dear {USERNAME},
 
 Congratulations on your {BIRTHDAY} birthday. We at {SITENAME} wish you a great day!!
 
