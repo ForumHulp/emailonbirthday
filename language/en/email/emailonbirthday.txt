@@ -2,10 +2,10 @@ Subject: Congratulations on your birthday, {USERNAME}!
 
 Dear {USERNAME},
 
-Congratulations on your {BIRTHDAY} birthday. We at {SITENAME} wish you a great day!!
+Congratulations on your <strong>{BIRTHDAY}</strong> birthday. We at {SITENAME} wish you a great day!!
 
 
-The best wish we can give you is a long and happy life,
+<p style="color:red">The best wish we can give you is a long and happy life,</p>
 
 
 {EMAIL_SIG}

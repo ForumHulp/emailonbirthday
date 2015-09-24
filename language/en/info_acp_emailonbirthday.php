@@ -22,7 +22,7 @@ $lang = array_merge($lang, array(
 	'E_MAIL_ON_BIRTHDAY_EXPLAIN'	=> 'Send every member a birthday email on his / her birthday',
 	'HTML_EMAIL_ON_BIRTHDAY'		=> 'Use html in email',
 	'HTML_EMAIL_ON_BIRTHDAY_EXPLAIN'=> 'Send a html birthday email instead of plain-text.',
-	'HTML_EMAIL_ENABLED'			=> '(Only possible with other enabled extension, forumhulp\htmlemail)',
+	'HTML_EMAIL_ENABLED'			=> '(Only possible with enabled extension, <a href="https://github.com/ForumHulp/htmlemail" target="_blank">forumhulp\htmlemail</a>)',
 	'BIRTHDAYSEND'					=> '<strong>Birthday mail send to</strong><br />» %s',
-	'E_MAIL_ON_BIRTHDAY_NOTICE'		=> '<div class="attach-image"><p>There are no settings for this extension. To use this function you have to switch html to on in your application. Use $messenger->use_html(true); to activate html email.</p></div>',
+	'E_MAIL_ON_BIRTHDAY_NOTICE'		=> '<div class="attach-image"><p>Settings for this extension are in %1$s » %2$s » %3$s. To use html in your birthday-mail you also need to enable <a href="https://github.com/ForumHulp/htmlemail" target="_blank">htmlemail</a> and change the text in your language folder email.</p></div>',
 ));

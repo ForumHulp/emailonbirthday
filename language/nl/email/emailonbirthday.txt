@@ -2,10 +2,10 @@ Subject: Gefeliciteerd met je verjaardag, {USERNAME}!
 
 Beste {USERNAME},
 
-Gefeliciteerd met je {BIRTHDAY} verjaardag. Wij van {SITENAME} wensen je een hele fijne dag toe!!
+Gefeliciteerd met je <strong>{BIRTHDAY}</strong> verjaardag. Wij van {SITENAME} wensen je een hele fijne dag toe!!
 
 
-De beste wens die wij je kunnen geven is een lang en gelukkig leven,
+<p style="color:red">De beste wens die wij je kunnen geven is een lang en gelukkig leven,</p>
 
 
 {EMAIL_SIG}
