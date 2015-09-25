@@ -25,7 +25,7 @@ class ext extends \phpbb\extension\base
 		{
 			global $user;
 			$user->add_lang_ext('forumhulp/emailonbirthday', 'info_acp_emailonbirthday');
-			$user->lang['EXTENSION_ENABLE_SUCCESS'] .= (isset($user->lang['E_MAIL_ON_BIRTHDAY_NOTICE']) ? $user->lang['E_MAIL_ON_BIRTHDAY_NOTICE'] : '');
+			$user->lang['EXTENSION_ENABLE_SUCCESS'] .= (isset($user->lang['E_MAIL_ON_BIRTHDAY_NOTICE']) ? sprintf($user->lang['E_MAIL_ON_BIRTHDAY_NOTICE'], $user->lang['ACP_CAT_GENERAL'], $user->lang['ACP_BOARD_CONFIGURATION'], $user->lang['ACP_BOARD_FEATURES']) : '');
 		}
 		// Run parent enable step method
 		return parent::enable_step($old_state);
