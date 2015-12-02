@@ -42,7 +42,7 @@ class ext extends \phpbb\extension\base
 			$this->container->get('user')->add_lang_ext('forumhulp/emailonbirthday', 'info_acp_emailonbirthday');
 			$this->container->get('template')->assign_var('L_EXTENSION_ENABLE_SUCCESS', $this->container->get('user')->lang['EXTENSION_ENABLE_SUCCESS'] .
 			(isset($this->container->get('user')->lang['E_MAIL_ON_BIRTHDAY_NOTICE']) ?
-				sprintf($this->container->get('user')->lang['E_MAIL_ON_BIRTHDAY_NOTICE'], 
+				sprintf($this->container->get('user')->lang['E_MAIL_ON_BIRTHDAY_NOTICE'],
 						$this->container->get('user')->lang['ACP_CAT_GENERAL'],
 						$this->container->get('user')->lang['ACP_BOARD_CONFIGURATION'],
 						$this->container->get('user')->lang['ACP_BOARD_FEATURES']) : ''));

@@ -9,8 +9,6 @@
 
 namespace forumhulp\emailonbirthday\migrations\v31x;
 
-use phpbb\db\migration\container_aware_migration;
-
 /**
  * Migration stage 1: Initial schema
  */
