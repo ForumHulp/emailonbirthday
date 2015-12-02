@@ -68,7 +68,7 @@ class birthday extends \phpbb\cron\task\base
 				FROM ' . USERS_TABLE . ' 
 				WHERE user_birthday <> " 0- 0-   0" AND user_birthday <> "" AND 
 				(user_birthday LIKE "' . $this->db->sql_escape(sprintf("%2d-%2d-", $now["mday"], $now["mon"])) . '%"' . $leap_year_birthdays . ') AND 
-				email_on_birthday + 15778463 < UNIX_TIMESTAMP(now())';
+				email_on_birthday + 86400 < UNIX_TIMESTAMP(now())';
 		$result = $this->db->sql_query($sql);
 		$msg_list = array();
 		while ($row = $this->db->sql_fetchrow($result))

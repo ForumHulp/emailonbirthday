@@ -7,37 +7,31 @@
 *
 */
 
-namespace forumhulp\emailonbirthday\migrations;
+namespace forumhulp\emailonbirthday\migrations\v31x;
 
-class install_emailonbirthday extends \phpbb\db\migration\migration
+/**
+ * Migration stage 2: Config data
+ */
+class m2_config_data extends \phpbb\db\migration\migration
 {
+	/**
+	 * Assign migration file dependencies for this migration
+	 *
+	 * @return array Array of migration files
+	 * @static
+	 * @access public
+	 */
 	static public function depends_on()
 	{
-		return array('\phpbb\db\migration\data\v310\dev');
+		return array('\forumhulp\emailonbirthday\migrations\v31x\m1_initial_schema');
 	}
 
-	public function update_schema()
-	{
-		return array(
-			'add_columns'	=> array(
-				$this->table_prefix . 'users'	=> array(
-					'email_on_birthday'		=> array('UINT:11', 0)
-				)
-			)
-		);
-	}
-
-	public function revert_schema()
-	{
-		return array(
-			'drop_columns'	=> array(
-				USERS_TABLE	=> array(
-					'email_on_birthday',
-				),
-			)
-		);
-	}
-
+	/**
+	 * Add or update data in the database
+	 *
+	 * @return array Array of table data
+	 * @access public
+	 */
 	public function update_data()
 	{
 		return array(
@@ -51,7 +45,7 @@ class install_emailonbirthday extends \phpbb\db\migration\migration
 
 	public function update_email_on_birthday()
 	{
-		$sql = 'UPDATE ' . USERS_TABLE . ' SET email_on_birthday = ' . (time() - 15778463);
+		$sql = 'UPDATE ' . USERS_TABLE . ' SET email_on_birthday = ' . (time() - 86400);
 		$this->db->sql_query($sql);
 	}
 }
