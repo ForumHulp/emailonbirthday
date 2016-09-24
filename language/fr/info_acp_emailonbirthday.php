@@ -45,6 +45,6 @@ $lang = array_merge($lang, array(
 	'HTML_EMAIL_ON_BIRTHDAY_EXPLAIN'=> 'Envoie l’email d’anniversaire en HTML en lieu et place du format texte.',
 	'HTML_EMAIL_ENABLED'			=> '(Disponible uniquement si l’extension forumhulp\htmlemail est activée)',
 	'BIRTHDAYSEND'					=> '<strong>E-mail d’anniversaire envoyé à</strong><br />» %s',
-	'FH_HELPER_NOTICE'				=> 'Forumhulp helper application does not exist!<br />Download <a href="https://github.com/ForumHulp/helper" target="_blank">forumhulp/helper</a> and copy the helper folder to your forumhulp extension folder.',
-	'E_MAIL_ON_BIRTHDAY_NOTICE'		=> '<div class="attach-image"><p>Settings for this extension are in %1$s » %2$s » %3$s. To use html in your birthday-mail you also need to enable <a href="https://github.com/ForumHulp/htmlemail" target="_blank">htmlemail</a> and change the text in your language folder email.</p></div>',
+	'FH_HELPER_NOTICE'				=> 'L’extension : « Forumhulp Helper » n’est pas installée !<br />Il est nécessaire de télécharger son archive disponible sur cette page : <a href="https://github.com/ForumHulp/helper" target="_blank">Forumhulp Helper</a>, puis de l’envoyer sur son espace FTP et de l’activer.',
+	'E_MAIL_ON_BIRTHDAY_NOTICE'		=> '<div class="attach-image"><p>Les paramètres de cette extension se trouvent dans : %1$s » %2$s » %3$s. Pour utiliser le language HTML dans les e-mails d’anniversaires il est nécessaire d’activer l’extension : <a href="https://github.com/ForumHulp/htmlemail" target="_blank">HTML email</a>, puis de modifier le contenu des fichiers du répertoire : ./ext/forumhulp/emailonbirthday/language/fr/email/.</p></div>',
 ));
