@@ -19,13 +19,10 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 */
 class listener implements EventSubscriberInterface
 {
-	/* @var \phpbb\controller\helper */
 	protected $helper;
 
 	/**
 	* Constructor
-	*
-	* @param \phpbb\controller\helper    $helper        Controller helper object
 	*/
 	public function __construct(\phpbb\controller\helper $helper)
 	{
@@ -35,8 +32,19 @@ class listener implements EventSubscriberInterface
 	static public function getSubscribedEvents()
 	{
 		return array(
+			'core.user_setup'					=> 'load_language_on_setup',
 			'core.acp_board_config_edit_add'	=> 'load_config_on_setup',
 		);
+	}
+
+	public function load_language_on_setup($event)
+	{
+		$lang_set_ext 		= $event['lang_set_ext'];
+		$lang_set_ext[] 	= array(
+			'ext_name' 		=> 'forumhulp/emailonbirthday',
+			'lang_set' 		=> 'emailonbirthday',
+		);
+		$event['lang_set_ext'] = $lang_set_ext;
 	}
 
 	public function load_config_on_setup($event)

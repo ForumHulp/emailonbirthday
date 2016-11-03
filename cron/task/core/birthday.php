@@ -9,7 +9,12 @@
 
 namespace forumhulp\emailonbirthday\cron\task\core;
 
-use Symfony\Component\DependencyInjection\ContainerInterface;
+use phpbb\config\config;
+use phpbb\user;
+use phpbb\db\driver\driver_interface;
+use phpbb\log\log;
+use forumhulp\emailonbirthday\lang_manager\lang_manager;
+use phpbb\extension\manager;
 
 /**
 * @ignore
@@ -17,33 +22,30 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class birthday extends \phpbb\cron\task\base
 {
-	protected $phpbb_root_path;
-	protected $php_ext;
 	protected $config;
 	protected $user;
 	protected $db;
 	protected $log;
-	protected $manager;
-	protected $container;
+	protected $lang_manager;
+	protected $extension_manager;
+	protected $notification_manager;
+	protected $phpbb_root_path;
+	protected $php_ext;
 
 	/**
 	* Constructor.
-	*
-	* @param string $phpbb_root_path The root path
-	* @param string $php_ext The PHP extension
-	* @param phpbb_config $config The config
-	* @param phpbb_db_driver $db The db connection
 	*/
-	public function __construct($phpbb_root_path, $php_ext, \phpbb\config\config $config, \phpbb\user $user, \phpbb\db\driver\driver_interface $db, \phpbb\log\log $log, \forumhulp\emailonbirthday\lang_manager\manager $manager, ContainerInterface $container)
+	public function __construct(config $config, user $user, driver_interface $db, log $log, lang_manager $lang_manager, manager $extension_manager, \phpbb\notification\manager $notification_manager, $phpbb_root_path, $php_ext)
 	{
-		$this->phpbb_root_path	= $phpbb_root_path;
-		$this->php_ext 			= $php_ext;
 		$this->config			= $config;
 		$this->user				= $user;
 		$this->db				= $db;
 		$this->log				= $log;
-		$this->lang_manager		= $manager;
-		$this->container		= $container;
+		$this->lang_manager		= $lang_manager;
+		$this->ext_manager		= $extension_manager;
+		$this->noti_manager		= $notification_manager;
+		$this->phpbb_root_path	= $phpbb_root_path;
+		$this->php_ext 			= $php_ext;
 	}
 
 	/**
@@ -87,36 +89,14 @@ class birthday extends \phpbb\cron\task\base
 		{
 			if ($this->config['email_enable'])
 			{
-				if (!class_exists('messenger'))
-				{
-					include($this->phpbb_root_path . 'includes/functions_messenger.' . $this->php_ext);
-				}
-
-				$server_url = generate_board_url();
-				$manager = $this->container->get('ext.manager');
-				$use_html = $manager->is_enabled('forumhulp/htmlemail');
-				$messenger = new \messenger(false);
-
 				foreach ($msg_list as $key => $value)
 				{
-					$messenger->template('@forumhulp_emailonbirthday/emailonbirthday', $value['lang']);
-					($use_html) ? $messenger->set_mail_html($this->config['html_email_on_birthday']) : null;
-
-					$messenger->to($value['email'], $value['name']);
-
-					$messenger->headers('X-AntiAbuse: Board servername - ' . $this->config['server_name']);
-					$messenger->headers('X-AntiAbuse: User_id - ' . $value['user_id']);
-					$messenger->headers('X-AntiAbuse: Username - ' . $value['name']);
-					$messenger->headers('X-AntiAbuse: User IP - ' . $this->user->ip);
-
-					$messenger->assign_vars(array(
-						'USERNAME'		=> htmlspecialchars_decode($value['name']),
-						'BIRTHDAY'		=> $value['age'],
-						'SITENAME'		=> $this->config['sitename']
-						)
-					);
-
-					$messenger->send(NOTIFY_EMAIL);
+					$this->noti_manager->add_notifications('forumhulp.emailonbirthday.notification.type.birthday', array(
+						  'user_id'		=> $value['user_id'],
+						  'age'			=> $value['age'],
+						  'name'		=> $value['name'],
+						  'user_email'	=> $value['email']
+					));
 
 					$sql = 'UPDATE ' . USERS_TABLE . ' SET email_on_birthday = ' . time() . ' WHERE user_id = ' . $value['user_id'];
 					$this->db->sql_query($sql);
