@@ -40,42 +40,31 @@ class ext extends \phpbb\extension\base
 		switch ($old_state)
 		{
 			case '': // Empty means nothing has run yet
-				if (empty($old_state))
-				{
-					$this->container->get('user')->add_lang_ext('forumhulp/emailonbirthday', 'info_acp_emailonbirthday');
-					$this->container->get('template')->assign_var('L_EXTENSION_ENABLE_SUCCESS', $this->container->get('user')->lang['EXTENSION_ENABLE_SUCCESS'] .
-					(isset($this->container->get('user')->lang['E_MAIL_ON_BIRTHDAY_NOTICE']) ?
-						sprintf($this->container->get('user')->lang['E_MAIL_ON_BIRTHDAY_NOTICE'],
-								$this->container->get('user')->lang['ACP_CAT_GENERAL'],
-								$this->container->get('user')->lang['ACP_BOARD_CONFIGURATION'],
-								$this->container->get('user')->lang['ACP_BOARD_FEATURES']) : ''));
-				}
-				
-				// Enable birthday system notifications
-				return $this->notification_handler('enable', array(
-					'forumhulp.emailonbirthday.notification.type.birthday',
-				));
-			
+			if (empty($old_state))
+			{
+				$this->container->get('user')->add_lang_ext('forumhulp/emailonbirthday', 'info_acp_emailonbirthday');
+				$this->container->get('template')->assign_var('L_EXTENSION_ENABLE_SUCCESS', $this->container->get('user')->lang['EXTENSION_ENABLE_SUCCESS'] .
+				(isset($this->container->get('user')->lang['E_MAIL_ON_BIRTHDAY_NOTICE']) ?
+					sprintf($this->container->get('user')->lang['E_MAIL_ON_BIRTHDAY_NOTICE'],
+							$this->container->get('user')->lang['ACP_CAT_GENERAL'],
+							$this->container->get('user')->lang['ACP_BOARD_CONFIGURATION'],
+							$this->container->get('user')->lang['ACP_BOARD_FEATURES']) : ''));
+			}
+
+			// Enable birthday system notifications
+			return $this->notification_handler('enable', array(
+				'forumhulp.emailonbirthday.notification.type.birthday',
+			));
+	
 			break;
-			
+
 			default:
-			
+
 				// Run parent enable step method
 				return parent::enable_step($old_state);
-				
+
 			break;
 		}
-	}
-
-	/**
-	* Single disable step
-	*
-	* @param mixed $old_state State returned by previous call of this method
-	* @return mixed Returns false after last step, otherwise temporary state
-	*/
-	public function disable_step($old_state)
-	{
-		return parent::disable_step($old_state);
 	}
 
 	/**
