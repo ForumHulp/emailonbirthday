@@ -55,7 +55,7 @@ class ext extends \phpbb\extension\base
 			return $this->notification_handler('enable', array(
 				'forumhulp.emailonbirthday.notification.type.birthday',
 			));
-	
+
 			break;
 
 			default:
