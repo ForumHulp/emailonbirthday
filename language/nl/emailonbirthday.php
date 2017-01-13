@@ -18,5 +18,5 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-	'BIRTHDAY_NOTIFICATION'			=> '<strong>Gefeliciteerd %1s</strong><br />met je %2s verjaardag'
+	'BIRTHDAY_NOTIFICATION'			=> '<i class="icon fa-bell fa-fw" aria-hidden="true"></i><strong>Gefeliciteerd %1s</strong><br />met je %2s verjaardag'
 ));

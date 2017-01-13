@@ -22,10 +22,7 @@ services:
             - '@dbal.conn'
             - '@log'
             - '@forumhulp.emailonbirthday.lang_manager'
-            - '@ext.manager'
             - '@notification_manager'
-            - '%core.root_path%'
-            - '%core.php_ext%'
         calls:
             - [set_name, [forumhulp.cron.emailonbirthday]]
         tags:

@@ -18,5 +18,5 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-	'BIRTHDAY_NOTIFICATION'			=> '<strong>Happy birthday %1s</strong><br />Have a nice %2s birthday day!'
+	'BIRTHDAY_NOTIFICATION'			=> '<i class="icon fa-bell fa-fw" aria-hidden="true"></i><strong>Happy birthday %1s</strong><br />Have a nice %2s birthday day!'
 ));

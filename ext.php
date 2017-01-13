@@ -52,10 +52,46 @@ class ext extends \phpbb\extension\base
 			}
 
 			// Enable birthday system notifications
-			return $this->notification_handler('enable', array(
-				'forumhulp.emailonbirthday.notification.type.birthday',
-			));
+				$phpbb_notifications = $this->container->get('notification_manager');
+				$phpbb_notifications->enable_notifications('forumhulp.emailonbirthday.notification.type.birthday');
 
+				$sql = 'SELECT COUNT(item_type) AS total
+						FROM ' . $this->container->getParameter('tables.user_notifications') . "
+						WHERE item_type = '" . $this->container->get('dbal.conn')->sql_escape('forumhulp.emailonbirthday.notification.type.birthday') . "'";
+				$this->container->get('dbal.conn')->sql_query($sql);
+				$total = $this->container->get('dbal.conn')->sql_fetchfield('total');
+
+				if (!$total)
+				{
+					$insert_buffer = new \phpbb\db\sql_insert_buffer($this->container->get('dbal.conn'), $this->container->getParameter('tables.user_notifications'));
+
+					$config = $this->container->get('config');
+					$method = (version_compare($config['version'], '3.2.*', '<')) ? '' : 'notification.method.board'; 
+					$sql = 'SELECT user_id FROM ' . USERS_TABLE . ' WHERE ' . $this->container->get('dbal.conn')->sql_in_set('user_type', array(USER_INACTIVE, USER_IGNORE), true);
+					$result = $this->container->get('dbal.conn')->sql_query($sql);
+					while ($row = $this->container->get('dbal.conn')->sql_fetchrow($result))
+					{
+						$insert_buffer->insert(array(
+							'item_type'	=> 'forumhulp.emailonbirthday.notification.type.birthday',
+							'item_id'	=> 0,
+							'user_id'	=> $row['user_id'],
+							'method'	=> $method,
+							'notify'	=> 1)
+						);
+						$insert_buffer->insert(array(
+							'item_type'	=> 'forumhulp.emailonbirthday.notification.type.birthday',
+							'item_id'	=> 0,
+							'user_id'	=> $row['user_id'],
+							'method'	=> 'notification.method.email',
+							'notify'	=> 1)
+						);
+					}
+
+					// Flush the buffer
+					$insert_buffer->flush();
+				}
+
+				return 'notifications';
 			break;
 
 			default:
@@ -68,23 +104,53 @@ class ext extends \phpbb\extension\base
 	}
 
 	/**
-	 * Overwrite purge_step to purge BBdownloads system notifications before
-	 * any included and installed migrations are reverted.
-	 *
-	 * @param mixed $old_state State returned by previous call of this method
-	 * @return mixed Returns false after last step, otherwise temporary state
-	 * @access public
-	 */
+	* Overwrite disable_step to disable notifications
+	* before the extension is disabled.
+	*
+	* @param mixed $old_state State returned by previous call of this method
+	* @return mixed Returns false after last step, otherwise temporary state
+	* @access public
+	*/
+	public function disable_step($old_state)
+	{
+		switch ($old_state)
+		{
+			case '': // Empty means nothing has run yet
+
+				// Disable board rules notifications
+				$phpbb_notifications = $this->container->get('notification_manager');
+				$phpbb_notifications->disable_notifications('forumhulp.emailonbirthday.notification.type.birthday');
+				return 'notifications';
+
+			break;
+
+			default:
+
+				// Run parent disable step method
+				return parent::disable_step($old_state);
+
+			break;
+		}
+	}
+
+	/**
+	* Overwrite purge_step to purge notifications before
+	* any included and installed migrations are reverted.
+	*
+	* @param mixed $old_state State returned by previous call of this method
+	* @return mixed Returns false after last step, otherwise temporary state
+	* @access public
+	*/
 	public function purge_step($old_state)
 	{
 		switch ($old_state)
 		{
 			case '': // Empty means nothing has run yet
 
-				// Purge Forum BBdownloads system notifications
-				return $this->notification_handler('purge', array(
-					'forumhulp.emailonbirthday.notification.type.birthday',
-				));
+				// Purge notifications
+				$phpbb_notifications = $this->container->get('notification_manager');
+				$phpbb_notifications->purge_notifications('forumhulp.emailonbirthday.notification.type.birthday');
+				return 'notifications';
 
 			break;
 
@@ -95,25 +161,5 @@ class ext extends \phpbb\extension\base
 
 			break;
 		}
-	}
-
-	/**
-	 * Notification handler to call notification enable/disable/purge steps
-	 *
-	 * @param string $step               The step (enable, disable, purge)
-	 * @param array  $notification_types The notification type names
-	 * @return string Return notifications as temporary state
-	 * @access protected
-	 */
-	protected function notification_handler($step, $notification_types)
-	{
-		$phpbb_notifications = $this->container->get('notification_manager');
-
-		foreach ($notification_types as $notification_type)
-		{
-			call_user_func(array($phpbb_notifications, $step . '_notifications'), $notification_type);
-		}
-
-		return 'notifications';
 	}
 }

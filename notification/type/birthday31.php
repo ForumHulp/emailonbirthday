@@ -43,22 +43,6 @@ class birthday extends \phpbb\notification\type\base
 		'group'	=> 'NOTIFICATION_GROUP_MISCELLANEOUS',
 	);
 
-	/** @var \phpbb\user_loader */
-	protected $user_loader;
-
-	/** @var \phpbb\config\config */
-	protected $config;
-
-	public function set_config(\phpbb\config\config $config)
-	{
-		$this->config = $config;
-	}
-
-	public function set_user_loader(\phpbb\user_loader $user_loader)
-	{
-		$this->user_loader = $user_loader;
-	}
-
 	/**
 	* Is available
 	*/
@@ -106,7 +90,6 @@ class birthday extends \phpbb\notification\type\base
 		$users = array();
 		$users[] = (int) $data['user_id'];
 
-		$this->user_loader->load_users(array($data['user_id']));
 		return $this->check_user_notification_options($users, $options);
 	}
 
@@ -115,7 +98,7 @@ class birthday extends \phpbb\notification\type\base
 	*/
 	public function get_avatar()
 	{
-		return $this->user_loader->get_avatar($this->get_data('user_id'), false, true);
+		return $this->user_loader->get_avatar($this->get_data['user_id'], false, true);
 	}
 
 	/**
@@ -126,16 +109,6 @@ class birthday extends \phpbb\notification\type\base
 	public function get_title()
 	{
 		return $this->user->lang('BIRTHDAY_NOTIFICATION', $this->get_data('name'), $this->get_data('age'));
-	}
-
-	/**
-	* Get the HTML formatted reference of the notification
-	*
-	* @return string
-	*/
-	public function get_reference()
-	{
-		return '';
 	}
 
 	/**
@@ -187,7 +160,7 @@ class birthday extends \phpbb\notification\type\base
 	*/
 	public function users_to_query()
 	{
-		return array($this->get_data('user_id'));
+		return array();
 	}
 
 	/**

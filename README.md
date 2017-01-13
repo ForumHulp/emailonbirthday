@@ -10,13 +10,12 @@ Email on birthday sends every member a card on his or her birthday.
 * PHP 5.3.3 or higher
 
 ## Installation
+This extension is configured for phpBB 3.2. To have it run on 3.1 versions copy notifications31.yml in folder config to notifications.yml and birthday31.php in folder notification to birthday.php. Once you upgrade to 3.2 do the same for the 32 files. We feel sorry as our answers on phpbb sites are removed, so use github or our forum for answers.
 You can install this extension on the latest copy of the develop branch ([phpBB 3.1-dev](https://github.com/phpbb/phpbb3)) by doing the following:
 
 1. Copy the [entire contents of this repo](https://github.com/ForumHulp/emailonbirthday/archive/master.zip) to `FORUM_DIRECTORY/ext/forumhulp/emailonbirthday/`.
 2. Navigate in the ACP to `Customise -> Extension Management -> Manage extensions`.
 3. Click Email on birthday => `Enable`.
-
-Note: This extension is in development. Installation is only recommended for testing purposes and is not supported on live boards. This extension will be officially released following phpBB 3.1.0. Extensions.
 
 ## Update
 1. Download the [latest ZIP-archive of `master` branch of this repository](https://github.com/ForumHulp/emailonbirthday/archive/master.zip).

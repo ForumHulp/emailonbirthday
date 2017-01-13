@@ -14,7 +14,7 @@ use phpbb\user;
 use phpbb\db\driver\driver_interface;
 use phpbb\log\log;
 use forumhulp\emailonbirthday\lang_manager\lang_manager;
-use phpbb\extension\manager;
+use phpbb\notification\manager;
 
 /**
 * @ignore
@@ -27,25 +27,19 @@ class birthday extends \phpbb\cron\task\base
 	protected $db;
 	protected $log;
 	protected $lang_manager;
-	protected $extension_manager;
 	protected $notification_manager;
-	protected $phpbb_root_path;
-	protected $php_ext;
 
 	/**
 	* Constructor.
 	*/
-	public function __construct(config $config, user $user, driver_interface $db, log $log, lang_manager $lang_manager, manager $extension_manager, \phpbb\notification\manager $notification_manager, $phpbb_root_path, $php_ext)
+	public function __construct(config $config, user $user, driver_interface $db, log $log, lang_manager $lang_manager, manager $notification_manager)
 	{
 		$this->config			= $config;
 		$this->user				= $user;
 		$this->db				= $db;
 		$this->log				= $log;
 		$this->lang_manager		= $lang_manager;
-		$this->ext_manager		= $extension_manager;
 		$this->noti_manager		= $notification_manager;
-		$this->phpbb_root_path	= $phpbb_root_path;
-		$this->php_ext 			= $php_ext;
 	}
 
 	/**
@@ -87,27 +81,24 @@ class birthday extends \phpbb\cron\task\base
 
 		if (sizeof($msg_list))
 		{
-			if ($this->config['email_enable'])
+			foreach ($msg_list as $key => $value)
 			{
-				foreach ($msg_list as $key => $value)
-				{
-					$this->noti_manager->add_notifications('forumhulp.emailonbirthday.notification.type.birthday', array(
-						  'user_id'		=> $value['user_id'],
-						  'age'			=> $value['age'],
-						  'name'		=> $value['name'],
-						  'user_email'	=> $value['email']
-					));
+				$this->noti_manager->add_notifications('forumhulp.emailonbirthday.notification.type.birthday', array(
+					  'user_id'		=> $value['user_id'],
+					  'age'			=> $value['age'],
+					  'name'		=> $value['name'],
+					  'user_email'	=> $value['email']
+				));
 
-					$sql = 'UPDATE ' . USERS_TABLE . ' SET email_on_birthday = ' . time() . ' WHERE user_id = ' . $value['user_id'];
-					$this->db->sql_query($sql);
-				}
-				$userlist = array_map(function ($entry)
-				{
-					return $entry['name'];
-				}, $msg_list);
-
-				$this->log->add('admin', $this->user->data['user_id'], $this->user->data['session_ip'], 'BIRTHDAYSEND', false, array(implode(', ', $userlist)));
+				$sql = 'UPDATE ' . USERS_TABLE . ' SET email_on_birthday = ' . time() . ' WHERE user_id = ' . $value['user_id'];
+				$this->db->sql_query($sql);
 			}
+			$userlist = array_map(function ($entry)
+			{
+				return $entry['name'];
+			}, $msg_list);
+
+			$this->log->add('admin', $this->user->data['user_id'], $this->user->data['session_ip'], 'BIRTHDAYSEND', false, array(implode(', ', $userlist)));
 		}
 		$this->config->set('emailonbirthday_last_gc', time());
 	}
