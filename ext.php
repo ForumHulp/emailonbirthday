@@ -66,7 +66,7 @@ class ext extends \phpbb\extension\base
 					$insert_buffer = new \phpbb\db\sql_insert_buffer($this->container->get('dbal.conn'), $this->container->getParameter('tables.user_notifications'));
 
 					$config = $this->container->get('config');
-					$method = (version_compare($config['version'], '3.2.*', '<')) ? '' : 'notification.method.board'; 
+					$method = (version_compare($config['version'], '3.2.*', '<')) ? '' : 'notification.method.board';
 					$sql = 'SELECT user_id FROM ' . USERS_TABLE . ' WHERE ' . $this->container->get('dbal.conn')->sql_in_set('user_type', array(USER_INACTIVE, USER_IGNORE), true);
 					$result = $this->container->get('dbal.conn')->sql_query($sql);
 					while ($row = $this->container->get('dbal.conn')->sql_fetchrow($result))
