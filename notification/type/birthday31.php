@@ -65,10 +65,9 @@ class birthday extends \phpbb\notification\type\base
 	/**
 	* Get the id of the parent
 	*
-	* @param array $post The data from the post
-	* @return int The topic id
+	* @param array $data
 	*/
-	static public function get_item_parent_id($post)
+	static public function get_item_parent_id($data)
 	{
 		return 0;
 	}
@@ -76,7 +75,6 @@ class birthday extends \phpbb\notification\type\base
 	/**
 	* Find the users who want to receive notifications
 	*
-	* @param array $post Data from submit_post
 	* @param array $options Options for finding users for notification
 	*
 	* @return array
@@ -98,7 +96,7 @@ class birthday extends \phpbb\notification\type\base
 	*/
 	public function get_avatar()
 	{
-		return $this->user_loader->get_avatar($this->get_data['user_id'], false, true);
+		return $this->user_loader->get_avatar($this->get_data('user_id'), true, true);
 	}
 
 	/**
