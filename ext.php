@@ -63,7 +63,7 @@ class ext extends \phpbb\extension\base
 				{
 					copy($path . 'config/notifications32.yml', $path . 'config/notifications.yml');
 					copy($path . 'notification/type/birthday32.php', $path . 'notification/type/birthday.php');
-				}				
+				}
 
 				$phpbb_notifications = $this->container->get('notification_manager');
 				$phpbb_notifications->enable_notifications('forumhulp.emailonbirthday.notification.type.birthday');
