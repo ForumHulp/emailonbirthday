@@ -54,17 +54,17 @@ class ext extends \phpbb\extension\base
 			// Enable birthday system notifications
 				$config = $this->container->get('config');
 				$path = $this->container->get('ext.manager')->get_extension_path('forumhulp/emailonbirthday', true);
-				
+
 				if (version_compare($config['version'], '3.2.*', '<'))
 				{
 					copy($path . 'config/notifications31.yml', $path . 'config/notifications.yml');
 					copy($path . 'notification/type/birthday31.php', $path . 'notification/type/birthday.php');
-				} else 
+				} else
 				{
 					copy($path . 'config/notifications32.yml', $path . 'config/notifications.yml');
 					copy($path . 'notification/type/birthday32.php', $path . 'notification/type/birthday.php');
 				}				
-				
+
 				$phpbb_notifications = $this->container->get('notification_manager');
 				$phpbb_notifications->enable_notifications('forumhulp.emailonbirthday.notification.type.birthday');
 
@@ -78,7 +78,7 @@ class ext extends \phpbb\extension\base
 				{
 					$insert_buffer = new \phpbb\db\sql_insert_buffer($this->container->get('dbal.conn'), $this->container->getParameter('tables.user_notifications'));
 
-					$method = (version_compare($config['version'], '3.2.*', '<')) ? '' : 'notification.method.board'; 
+					$method = (version_compare($config['version'], '3.2.*', '<')) ? '' : 'notification.method.board';
 					$sql = 'SELECT user_id FROM ' . USERS_TABLE . ' WHERE ' . $this->container->get('dbal.conn')->sql_in_set('user_type', array(USER_INACTIVE, USER_IGNORE), true);
 					$result = $this->container->get('dbal.conn')->sql_query($sql);
 					while ($row = $this->container->get('dbal.conn')->sql_fetchrow($result))
