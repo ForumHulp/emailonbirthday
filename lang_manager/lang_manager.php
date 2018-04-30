@@ -53,7 +53,7 @@ class lang_manager
 			$source = str_replace('__numbertext__', '0+(0|[1-9]\\d*) $1\n', $source);
 		}
 
-		foreach (split(';', $source) as $s)
+		foreach (explode(';', $source) as $s)
 		{
 			if ($s != '' && preg_match('/^\\s*(\"[^\"]*\"|[^\\s]*)\\s*(.*[^\\s])?\\s*$/', $s, $sp) > 0)
 			{
