@@ -16,8 +16,6 @@ You can install this extension on the latest copy of the develop branch ([phpBB 
 2. Navigate in the ACP to `Customise -> Extension Management -> Manage extensions`.
 3. Click Email on birthday => `Enable`.
 
-Note: This extension is in development. Installation is only recommended for testing purposes and is not supported on live boards. This extension will be officially released following phpBB 3.1.0. Extensions.
-
 ## Update
 1. Download the [latest ZIP-archive of `master` branch of this repository](https://github.com/ForumHulp/emailonbirthday/archive/master.zip).
 2. Navigate in the ACP to `Customise -> Extension Management -> Manage extensions` and click Email on birthday => `Disable`.
@@ -30,6 +28,8 @@ Note: This extension is in development. Installation is only recommended for tes
 Navigate in the ACP to `Customise -> Extension Management -> Manage extensions` and click Email on birthday => `Disable`.
 
 To permanently uninstall, click `Delete Data` and then you can safely delete the `/ext/forumhulp/emailonbirthday/` folder or use our Upload Extensions extension to delet all files and folders.
+
+We feel sorry as our answers on phpbb sites are removed, so use github or our forum for answers.
 
 ## License
 [GNU General Public License v2](http://opensource.org/licenses/GPL-2.0)

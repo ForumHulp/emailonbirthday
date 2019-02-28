@@ -43,6 +43,7 @@ $lang = array_merge($lang, array(
 	'E_MAIL_ON_BIRTHDAY_EXPLAIN'	=> 'Envoie un e-mail à chaque utilisateur pour son anniversaire.',
 	'HTML_EMAIL_ON_BIRTHDAY'		=> 'E-mail d’anniversaire en HTML',
 	'HTML_EMAIL_ON_BIRTHDAY_EXPLAIN'=> 'Envoie l’email d’anniversaire en HTML en lieu et place du format texte.',
+	'NOTIFICATION_TYPE_BIRTHDAY'	=> 'Birthday-wishes',
 	'HTML_EMAIL_ENABLED'			=> '(Disponible uniquement si l’extension forumhulp\htmlemail est activée)',
 	'BIRTHDAYSEND'					=> '<strong>E-mail d’anniversaire envoyé à</strong><br />» %s',
 	'FH_HELPER_NOTICE'				=> 'L’extension : « Forumhulp Helper » n’est pas installée !<br />Il est nécessaire de télécharger son archive disponible sur cette page : <a href="https://github.com/ForumHulp/helper" target="_blank">Forumhulp Helper</a>, puis de l’envoyer sur son espace FTP et de l’activer.',
