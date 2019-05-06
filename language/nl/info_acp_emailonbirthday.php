@@ -18,7 +18,13 @@ if (empty($lang) || !is_array($lang))
 }
 
 $lang = array_merge($lang, array(
-	'E_MAIL_ON_BIRTHDAY'				=> 'E-mail op je verjaardag',
-	'E_MAIL_ON_BIRTHDAY_EXPLAIN'		=> 'Stuur ieder lid een email op zijn verjaardag',
-	'BIRTHDAYSEND'						=> '<strong>Verjaardagskaart gestuurd naar</strong><br />» %s',
+	'E_MAIL_ON_BIRTHDAY'			=> 'E-mail op je verjaardag',
+	'E_MAIL_ON_BIRTHDAY_EXPLAIN'	=> 'Stuur ieder lid een email op zijn verjaardag',
+	'HTML_EMAIL_ON_BIRTHDAY'		=> 'Gebruik html in je  email',
+	'HTML_EMAIL_ON_BIRTHDAY_EXPLAIN'=> 'Stuur een html email in plaats van plain-tekst.',
+	'NOTIFICATION_TYPE_BIRTHDAY'	=> 'Birthday-wishes',
+	'HTML_EMAIL_ENABLED'			=> '(Alleen bij ingeschakelde extensie forumhulp\htmlemail)',
+	'BIRTHDAYSEND'					=> '<strong>Verjaardagskaart gestuurd naar</strong><br />» %s',
+	'FH_HELPER_NOTICE'				=> 'Forumhulp helper application does not exist!<br />Download <a href="https://github.com/ForumHulp/helper" target="_blank">forumhulp/helper</a> and copy the helper folder to your forumhulp extension folder.',
+	'E_MAIL_ON_BIRTHDAY_NOTICE'		=> '<div class="attach-image"><p>Instellingen voor deze extensie vindt je in %1$s » %2$s » %3$s. Om html in je verjaardgsmail te te gebruiken installeer je ook <a href="https://github.com/ForumHulp/htmlemail" target="_blank">htmlemail</a> en past de mail aan aan je behoefte in de map language - email.</p></div>',
 ));

@@ -1,0 +1,18 @@
+services:
+    forumhulp.emailonbirthday.notification.type.birthday:
+        class: forumhulp\emailonbirthday\notification\type\birthday
+        scope: prototype
+        arguments:
+            - @user_loader
+            - @dbal.conn
+            - @cache.driver
+            - @user
+            - @auth
+            - @config
+            - %core.root_path%
+            - %core.php_ext%
+            - %tables.notification_types%
+            - %tables.notifications%
+            - %tables.user_notifications%
+        tags:
+            - { name: notification.type }

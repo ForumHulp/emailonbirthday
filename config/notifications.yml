@@ -1,0 +1,10 @@
+services:
+    forumhulp.emailonbirthday.notification.type.birthday:
+        class: forumhulp\emailonbirthday\notification\type\birthday
+        shared: false
+        parent: notification.type.base
+        calls:
+            - [set_user_loader, ['@user_loader']]
+            - [set_config, ['@config']]
+        tags:
+            - { name: notification.type }

@@ -1,15 +1,15 @@
 {
     "name": "forumhulp/emailonbirthday",
     "type": "phpbb-extension",
-    "description": "E-mail on birthday.",
+    "description": "Email on birthday sends every member a card on his or her birthday.",
     "homepage": "http://forumhulp.com",
-    "version": "3.1.0",
+    "version": "3.1.6",
     "keywords": [
         "forumhulp",
         "phpbb",
         "extension",
-        "error",
-        "error pages"
+        "email",
+        "birthday"
     ],
     "license": "GPL-2.0",
     "authors": [
@@ -30,8 +30,8 @@
         },
         "version-check": {
 			"host": "forumhulp.com",
-			"directory": "/ext",
-			"filename": "index.php?id=44"
+			"directory": "/versioncheck",
+			"filename": "email-on-your-birthday"
         }
     }
 }

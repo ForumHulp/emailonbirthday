@@ -1,20 +1,29 @@
+imports:
+    - { resource: notifications.yml }
+
 services:
+    forumhulp.emailonbirthday.lang_manager:
+        class: forumhulp\emailonbirthday\lang_manager\lang_manager
+        arguments:
+            - '%core.root_path%'
+
     forumhulp.emailonbirthday.listener:
         class: forumhulp\emailonbirthday\event\listener
         arguments:
-            - @controller.helper
+            - '@controller.helper'
         tags:
             - { name: event.listener }
-    cron.task.core.email_on_birthday:
+
+    forumhulp.cron.emailonbirthday:
         class: forumhulp\emailonbirthday\cron\task\core\birthday
         arguments:
-            - %core.root_path%
-            - %core.php_ext%
-            - @config
-            - @user
-            - @dbal.conn
-            - @log
+            - '@config'
+            - '@user'
+            - '@dbal.conn'
+            - '@log'
+            - '@forumhulp.emailonbirthday.lang_manager'
+            - '@notification_manager'
         calls:
-            - [set_name, [cron.task.core.email_on_birthday]]
+            - [set_name, [forumhulp.cron.emailonbirthday]]
         tags:
             - { name: cron.task }

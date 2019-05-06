@@ -19,15 +19,159 @@ namespace forumhulp\emailonbirthday;
  */
 class ext extends \phpbb\extension\base
 {
+	public function is_enableable()
+	{
+		if (!class_exists('forumhulp\helper\helper'))
+		{
+			$this->container->get('user')->add_lang_ext('forumhulp/emailonbirthday', 'info_acp_emailonbirthday');
+			trigger_error($this->container->get('user')->lang['FH_HELPER_NOTICE'], E_USER_WARNING);
+		}
+
+		if (!$this->container->get('ext.manager')->is_enabled('forumhulp/helper'))
+		{
+			$this->container->get('ext.manager')->enable('forumhulp/helper');
+		}
+
+		return class_exists('forumhulp\helper\helper');
+	}
+
 	public function enable_step($old_state)
 	{
-		if (empty($old_state))
+		switch ($old_state)
 		{
-			global $user;
-			$info = '<div style="width:80%;margin:20px auto;"><p style="text-align:left;">Settings for this extension are in General >> Board configuration >> Board features.</p></div>';
-			$user->lang['EXTENSION_ENABLE_SUCCESS'] =  $user->lang['EXTENSION_ENABLE_SUCCESS'] . $info;
+			case '': // Empty means nothing has run yet
+			if (empty($old_state))
+			{
+				$this->container->get('user')->add_lang_ext('forumhulp/emailonbirthday', 'info_acp_emailonbirthday');
+				$this->container->get('template')->assign_var('L_EXTENSION_ENABLE_SUCCESS', $this->container->get('user')->lang['EXTENSION_ENABLE_SUCCESS'] .
+				(isset($this->container->get('user')->lang['E_MAIL_ON_BIRTHDAY_NOTICE']) ?
+					sprintf($this->container->get('user')->lang['E_MAIL_ON_BIRTHDAY_NOTICE'],
+							$this->container->get('user')->lang['ACP_CAT_GENERAL'],
+							$this->container->get('user')->lang['ACP_BOARD_CONFIGURATION'],
+							$this->container->get('user')->lang['ACP_BOARD_FEATURES']) : ''));
+			}
+
+			// Enable birthday system notifications
+				$config = $this->container->get('config');
+				$path = $this->container->get('ext.manager')->get_extension_path('forumhulp/emailonbirthday', true);
+
+				if (version_compare($config['version'], '3.2.*', '<'))
+				{
+					copy($path . 'config/notifications31.yml', $path . 'config/notifications.yml');
+					copy($path . 'notification/type/birthday31.php', $path . 'notification/type/birthday.php');
+				} else
+				{
+					copy($path . 'config/notifications32.yml', $path . 'config/notifications.yml');
+					copy($path . 'notification/type/birthday32.php', $path . 'notification/type/birthday.php');
+				}
+
+				$phpbb_notifications = $this->container->get('notification_manager');
+				$phpbb_notifications->enable_notifications('forumhulp.emailonbirthday.notification.type.birthday');
+
+				$sql = 'SELECT COUNT(item_type) AS total
+						FROM ' . $this->container->getParameter('tables.user_notifications') . "
+						WHERE item_type = '" . $this->container->get('dbal.conn')->sql_escape('forumhulp.emailonbirthday.notification.type.birthday') . "'";
+				$this->container->get('dbal.conn')->sql_query($sql);
+				$total = $this->container->get('dbal.conn')->sql_fetchfield('total');
+
+				if (!$total)
+				{
+					$insert_buffer = new \phpbb\db\sql_insert_buffer($this->container->get('dbal.conn'), $this->container->getParameter('tables.user_notifications'));
+
+					$method = (version_compare($config['version'], '3.2.*', '<')) ? '' : 'notification.method.board';
+					$sql = 'SELECT user_id FROM ' . USERS_TABLE . ' WHERE ' . $this->container->get('dbal.conn')->sql_in_set('user_type', array(USER_INACTIVE, USER_IGNORE), true);
+					$result = $this->container->get('dbal.conn')->sql_query($sql);
+					while ($row = $this->container->get('dbal.conn')->sql_fetchrow($result))
+					{
+						$insert_buffer->insert(array(
+							'item_type'	=> 'forumhulp.emailonbirthday.notification.type.birthday',
+							'item_id'	=> 0,
+							'user_id'	=> $row['user_id'],
+							'method'	=> $method,
+							'notify'	=> 1)
+						);
+						$insert_buffer->insert(array(
+							'item_type'	=> 'forumhulp.emailonbirthday.notification.type.birthday',
+							'item_id'	=> 0,
+							'user_id'	=> $row['user_id'],
+							'method'	=> 'notification.method.email',
+							'notify'	=> 1)
+						);
+					}
+
+					// Flush the buffer
+					$insert_buffer->flush();
+				}
+
+				return 'notifications';
+			break;
+
+			default:
+
+				// Run parent enable step method
+				return parent::enable_step($old_state);
+
+			break;
 		}
-		// Run parent enable step method
-		return parent::enable_step($old_state);
+	}
+
+	/**
+	* Overwrite disable_step to disable notifications
+	* before the extension is disabled.
+	*
+	* @param mixed $old_state State returned by previous call of this method
+	* @return mixed Returns false after last step, otherwise temporary state
+	* @access public
+	*/
+	public function disable_step($old_state)
+	{
+		switch ($old_state)
+		{
+			case '': // Empty means nothing has run yet
+
+				// Disable board rules notifications
+				$phpbb_notifications = $this->container->get('notification_manager');
+				$phpbb_notifications->disable_notifications('forumhulp.emailonbirthday.notification.type.birthday');
+				return 'notifications';
+
+			break;
+
+			default:
+
+				// Run parent disable step method
+				return parent::disable_step($old_state);
+
+			break;
+		}
+	}
+
+	/**
+	* Overwrite purge_step to purge notifications before
+	* any included and installed migrations are reverted.
+	*
+	* @param mixed $old_state State returned by previous call of this method
+	* @return mixed Returns false after last step, otherwise temporary state
+	* @access public
+	*/
+	public function purge_step($old_state)
+	{
+		switch ($old_state)
+		{
+			case '': // Empty means nothing has run yet
+
+				// Purge notifications
+				$phpbb_notifications = $this->container->get('notification_manager');
+				$phpbb_notifications->purge_notifications('forumhulp.emailonbirthday.notification.type.birthday');
+				return 'notifications';
+
+			break;
+
+			default:
+
+				// Run parent purge step method
+				return parent::purge_step($old_state);
+
+			break;
+		}
 	}
 }
