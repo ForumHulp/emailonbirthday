@@ -16,11 +16,22 @@ __numbertext__
 14 quatorze
 15 quinze
 16 seize
+1(\d) dix-$
 20 vingt
+21 vingt et un
+2(\d) vingt-$1
 30 trente
+31 trente et un
+3(\d) trente-$1
 40 quarante
+41 quarante et un
+4(\d) quarante-$1
 50 cinquante
+51 cinquante et un
+5(\d) cinquante-$1
 60 soixante
+61 soixante et un
+6(\d) soixante-$1
 71 soixante et onze
 7(\d) soixante-$(1\1)
 80$ quatre-vingts
